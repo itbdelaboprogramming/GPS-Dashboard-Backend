@@ -42,13 +42,14 @@ function resetTimeout(id, type) {
   const timeout = timeouts.get(id);
   if (type === "moving") {
     console.log("Resetting moving timeout for ", id);
+    setState(id, WORKING);
     if (timeout.movingTimeout) {
         clearTimeout(timeout.movingTimeout);
     }
     registerMovingTimeout(id);
   } else if (type === "connection") {
     console.log("Resetting connection timeout for ", id);
-    if (vehicle.connectionTimeout) {
+    if (timeout.connectionTimeout) {
         clearTimeout(timeout.connectionTimeout);
     }
     registerConnectionTimeout(id);
