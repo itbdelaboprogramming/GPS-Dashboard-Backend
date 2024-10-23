@@ -10,14 +10,14 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(mes
 
 sio = socketio.Client(logger=True)
 
-user_id = "your_id"
+client_id = "your_id"
 secret = "your_secret"
 
 def main():
     while True:
         try:
             payload = {
-                "id": user_id,
+                "id": client_id,
                 "latitude": 6.89,
                 "longitude": 107.6,
                 "status": "GPS Not Ready",
@@ -56,5 +56,5 @@ signal.signal(signal.SIGTERM, signal_handler)
 if __name__ == "__main__":
     logging.info("Attempting to connect to the server...")
     sio.connect("http://localhost:3000", namespaces=["/producer"], transports=["websocket"])
-    sio.emit("authenticate", {"id": user_id, "secret": secret}, namespace="/producer")
+    sio.emit("authenticate", {"id": client_id, "secret": secret}, namespace="/producer")
     sio.wait()
